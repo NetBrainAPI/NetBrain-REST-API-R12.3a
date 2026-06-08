@@ -60,7 +60,7 @@ PA license is required to use this API.
 ## Response
 The data model returned by each DataType. <br>
 The following are examples of the returned datatypes that are linked to an ADT for better understanding. <br>
-Therefore, it has the datamodel of each DataTyle along with the information of the ADT; aside from `value`, the `column_name` or other names, e.g. `Interface`, `BGP Enabling`, refer to the column names of the ADT Table that the user designed. <br>
+Therefore, it has the datamodel of each DataType along with the information of the ADT; aside from `value`, the `column_name` or other names, e.g. `Interface`, `BGP Enabling`, refer to the column names of the ADT Table that the user designed. <br>
 For more information, please refer to the example below.
 
 <table>

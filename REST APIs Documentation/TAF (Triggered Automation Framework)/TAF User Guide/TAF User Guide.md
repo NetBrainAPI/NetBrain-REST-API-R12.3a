@@ -1,8 +1,8 @@
 
 # Triggered Automation Framework (TAF) User Guide
 
-This user guide is an overall introduction and demostration TAF flow.
-The purpose is to help developers better understand the use case and the function of each REST API.
+This user guide is an overall introduction and demonstration TAF flow. <br>
+The purpose is to help developers better understand the use case and the function of each REST API. <br>
 There are 2 complete samples being provided.
 1. Manually Trigger a Self-Service Enabled Diagnosis
 2. Auto-Trigger

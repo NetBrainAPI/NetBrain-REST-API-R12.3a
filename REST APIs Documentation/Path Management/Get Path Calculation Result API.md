@@ -8,7 +8,7 @@ If the [Calculation Path](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3
 
 All directed links in the result consists of a directed path graph, which contains all possible reachable paths from the original source to the destination specified in path calculation.
 
-***Note:***: It is recommended to use [Get Path Calculation Overview API](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3/blob/main/REST%20APIs%20Documentation/Path%20Management/Get%20Path%20Calculation%20Overview%20API.md) as its result offers more details.
+***Note***: It is recommended to use [Get Path Calculation Overview API](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3/blob/main/REST%20APIs%20Documentation/Path%20Management/Get%20Path%20Calculation%20Overview%20API.md) as its result offers more details.
 
 ## Detail Information
 

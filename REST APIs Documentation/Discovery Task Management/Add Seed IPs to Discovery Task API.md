@@ -27,7 +27,7 @@ Call this API to add a list of target ip addresses as seeds to an <b>existing</b
 |<img width=100/>|<img width=100/>|<img width=500/>|
 |||* - required|
 |seeds* | list  | The list of IP entries for devices. |
-|seeds.mgmtIP* | string  | The management IP address of a device.  |
+|seeds.mgmtIP* | string  | The management IP address of a device. <br>The value can be IP or subnet. If it's a subnet, the mask must be in range 22-32. |
 |seeds.cliType | integer  | The access method to the device. When it is null, the SNMP method will be used. <br> `0`: Telnet <br> `1`: SSH|
 |seeds.username | string  | Specify the username to access the devices.   |
 |seeds.password | string  | Specify the password to access the devices.  |

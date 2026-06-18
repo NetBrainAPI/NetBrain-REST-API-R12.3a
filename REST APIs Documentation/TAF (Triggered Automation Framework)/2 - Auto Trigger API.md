@@ -2,7 +2,7 @@
 # Auto Trigger API Design
 
 ## ***POST*** /V1/TAF/Auto
-Use this API to send a third party system event data to NetBrain.
+Use this API to send a raw event data from the 3rd party system to NetBrain.
 
 ## Detail Information
 

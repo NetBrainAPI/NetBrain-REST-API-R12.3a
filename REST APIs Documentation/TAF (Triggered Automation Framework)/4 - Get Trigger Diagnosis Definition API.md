@@ -8,7 +8,7 @@ Use this API to query trigger definition on NetBrain end.
 
 > **Title** : Get Triggered Diagnosis Definition
 
-> **Version** : 01/31/2022
+> **Version** : 06/04/2026
 
 > **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/TAF/ManuallyDiagnosis
 
@@ -24,10 +24,10 @@ Use this API to query trigger definition on NetBrain end.
 |**Name**|**Type**|**Description**|
 |------|------|------|
 |<img width=100/>|<img width=100/>|<img width=500/>|
-|options.scope | String  | Mandatory parameter in multi-tenancy scenario, if the tenantId and domainId are not indicated inteh request to specify a particular working domain.<br> If there is only 1 domain in the entire NetBrain system, this parameter is not required. |
+|options.scope | String  | Mandatory parameter in multi-tenancy scenario, if the tenantId and domainId are not indicated in the request to specify a particular working domain.<br> If there is only 1 domain in the entire NetBrain system, this parameter is not required. |
 |options.tenantId | String  | To specify a particular working tenant. |
 |options.domainId | String  | To specify a particular working domain. |
-|*type| Integer | 1: To manually trigger a map<br>2: To manually trigger a diagnosis task. |
+|type*| Integer | `1`: To manually trigger a map<br>`2`: To manually trigger a diagnosis task. |
 
 
 ## Query Parameters(****required***)
@@ -56,8 +56,6 @@ Use this API to query trigger definition on NetBrain end.
 |**Name**|**Type**|**Description**|
 |------|------|------|
 |<img width=100/>|<img width=100/>|<img width=500/>|
-|statusCode| integer | The returned status code of executing the API.  |
-|statusDescription| string | The explanation of the status code.  |
 |diagnosises.id| String | The ID of a Triggered Diagnosis definition. |
 |diagnosises.name| String | The name of a Triggered Diagnosis definition. |
 |diagnosises.params| Array | Triggered Diagnosis Filter for Member Network Intent setting. |
@@ -68,6 +66,8 @@ Use this API to query trigger definition on NetBrain end.
 |diagnosises.params[].isMandatory| Boolean | Whether or not the parameter is mandatory. |
 |diagnosises.params[].canMultiChoice| Boolean | Whether or not the parameter is allowed to be chosen from a multi-choice array. |
 |diagnosises.params[].dataScope| Array | An array of strings that indicate the options of a parameter. |
+|statusCode| integer | The returned status code of executing the API.  |
+|statusDescription| string | The explanation of the status code.  |
 
 ## Example
 

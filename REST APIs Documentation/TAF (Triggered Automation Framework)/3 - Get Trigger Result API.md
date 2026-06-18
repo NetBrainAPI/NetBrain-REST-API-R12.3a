@@ -8,7 +8,7 @@ Use this API to query triggered task results.
 
 > **Title** : Get Trigger Result API
 
-> **Version** : 01/31/2022
+> **Version** : 06/04/2026
 
 > **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/TAF/Result
 
@@ -24,10 +24,10 @@ Use this API to query triggered task results.
 |**Name**|**Type**|**Description**|
 |------|------|------|
 |<img width=100/>|<img width=100/>|<img width=500/>|
-|options.scope | String  | Mandatory parameter in multi-tenancy scenario, if the tenantId and domainId are not indicated in the request to specify a particular working domain.<br> If there is only 1 domain in the entire NetBrain system, this parameter is not required. |
+|options.scope | String  | <b>Mandatory</b> parameter in multi-tenancy scenario, if the `tenantId` and `domainId` are not indicated in the request to specify a particular working domain.<br> If there is only 1 domain in the entire NetBrain system, this parameter is optional. |
 |options.tenantId | String  | To specify a particular working tenant. |
 |options.domainId | String  | To specify a particular working domain. |
-|*options.taskId | String  | The taskId returned from a particular trigger. |
+|options.taskId* | String  | The taskId returned from a particular trigger. |
 
 
 ## Query Parameters(****required***)
@@ -56,11 +56,9 @@ Use this API to query triggered task results.
 |**Name**|**Type**|**Description**|
 |------|------|------|
 |<img width=100/>|<img width=100/>|<img width=500/>|
-|statusCode| integer | The returned status code of executing the API.  |
-|statusDescription| string | The explanation of the status code.  |
 |tenantId| String | The task execution context - Tenant ID. |
 |domainId| String | The task execution context - Domain ID. |
-|status| Integer | The task execution status.<br>0: Pending;<br>1: Running<br>2: Finished<br>3: Failed<br>4: Aborted |
+|status| Integer | The task execution status.<br>`0`: Pending;<br>`1`: Running<br>`2`: Finished<br>`3`: Failed<br>`4`: Aborted |
 |statusDesc| String | The task execution status description. |
 |NIResults| Array | Results of Network Intent (NI) execution. |
 |NIResults[].id| String | NI ID. |
@@ -68,9 +66,11 @@ Use this API to query triggered task results.
 |NIResults[].niResultId| String | NI result ID. |
 |NIResults[].mapId| String | Map ID of the NI. |
 |NIResults[].mapName| String | Map name of the NI. |
-|NIResults[].messages| Array | The status code and message of the NI execution. |
-|NIResults[].messages[].type| Integer | Status code types.<br>1: Success<br>2: Error |
+|NIResults[].messages| Array | The status code message of the NI execution, retrieved from NIRestulSummary Table. <br> If there is an alert status code, only the alert status code will be stored; no success status code. <br> If there is no alert status code but a success code, one success status code will be stored. <br>If there is no status code, no status code exists. |
+|NIResults[].messages[].type| Integer | Status code types.<br>`1`: Success<br>`2`: Error |
 |NIResults[].messages[].message| String | The message details of a status code. |
+|statusCode| integer | The returned status code of executing the API.  |
+|statusDescription| string | The explanation of the status code.  |
 
 ## Example
 

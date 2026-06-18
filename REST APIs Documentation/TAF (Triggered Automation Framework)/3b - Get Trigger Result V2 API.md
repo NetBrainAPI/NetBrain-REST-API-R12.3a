@@ -2,7 +2,7 @@
 # Get Trigger Result V2 API Design
 
 ## ***POST*** /V1/TAF/ResultV2
-Use this API to query the full results of a triggered automation task, including repeat runs and follow-up triggered diagnoses. Introduced in R11.1a, this is the recommended replacement for the [Get Trigger Result API](3%20-%20Get%20Trigger%20Result%20API.md) (`/V1/TAF/Result`).
+Use this API to query the full results of a triggered automation task, including repeat runs and follow-up triggered diagnoses. <br> This is the recommended replacement for the [Get Trigger Result API](3%20-%20Get%20Trigger%20Result%20API.md) (`/V1/TAF/Result`).
 
 ## Overview
 

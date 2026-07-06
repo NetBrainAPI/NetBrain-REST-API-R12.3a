@@ -13,6 +13,7 @@ To view the full list of all REST APIs, please refer to [REST APIs Documentation
 2) [File Download APIs](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3/tree/main/REST%20APIs%20Documentation/File%20Download)
 3) [Get All Network Settings API](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3/blob/main/REST%20APIs%20Documentation/Network%20Setting/Get%20All%20Network%20Settings.md)<br>
 4) [Network Definition APIs](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3/tree/main/REST%20APIs%20Documentation/Network%20Definition) <br>
+5) [Get Data Center Status](https://github.com/NetBrainAPI/NetBrain-REST-API-R12.3/blob/main/REST%20APIs%20Documentation/Data%20Center%20Operation/Get%20Data%20Center%20Status.md) <br>
 
 
 

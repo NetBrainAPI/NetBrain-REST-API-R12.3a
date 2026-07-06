@@ -28,7 +28,7 @@ When a trigger fires — either through the [Auto Trigger API](2%20-%20Auto%20Tr
 
 > **Title** : Get Trigger Result V2 API
 
-> **Version** : 18/06/2026
+> **Version** : 06/07/2026
 
 > **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/TAF/ResultV2
 
@@ -113,7 +113,14 @@ When a trigger fires — either through the [Auto Trigger API](2%20-%20Auto%20Tr
 |NIResults[].cmResults.runbookInfos[].runbookUrl| string | Runbook URL of Change Management Result |
 |NIResults[].cmResults.runbookInfos[].deviceNames| Array | Device Names of Change Management Result |
 |NIResults[].cmResults.runbookInfos[].isPreApproved| bool | Whether the Change Management Result has been approved or not|
-|insightMessage|string|Insight Message|
+|insightMessage|object|AI-generated insight message summarizing the diagnosis.|
+|insightMessage.conclusion|string|Overall conclusion of the diagnosis.|
+|insightMessage.keyFindings|list of string|Key findings from the diagnosis, each citing the CLI command(s) used.|
+|insightMessage.diagnosticCheckpoints|Array|Ordered diagnostic steps that were performed.|
+|insightMessage.diagnosticCheckpoints[].step|int|Step number.|
+|insightMessage.diagnosticCheckpoints[].description|string|What the step checked.|
+|insightMessage.diagnosticCheckpoints[].result|string|Result / observation of the step.|
+|insightMessage.viewFullDiagnosis|string|URL to view the full diagnosis in NetBrain.|
 |insightMap|object|Insight Map|
 |insightMap.mapId|string|Insight Map ID|
 |insightMap.mapName|string|Insight Map Name|
@@ -233,11 +240,44 @@ print(GetTriggerResultV2(nb_endpoint, api_body))
       ]
     }
   ],
-  "insightMessage": "Detected unexpected reboot on US-BOS-R1; follow-up runbook auto-approved.",
+  "insightMessage": {
+    "conclusion": "No sustained high CPU was found on SW1. Live samples show low average CPU with intermittent spikes. Top short-lived consumers are Virtual Exec and IP Input. No memory pressure or interface errors observed.",
+    "keyFindings": [
+      "CPU samples: 5s ~8% (peaked 15% in sorted), 1-minute ~7-8%, 5-minute ~3%. (show processes cpu / show processes cpu sorted)",
+      "CPU history shows intermittent spikes over 60s/60m/72h but no sustained max. (show processes cpu history)",
+      "Top CPU users are Virtual Exec (PIDs 215, 205) and IP Input. (show processes cpu sorted)",
+      "Memory: large free pools (Processor free ~117 MB). (show memory statistics)",
+      "Interfaces: 0 input/output errors and 0 drops. (show interfaces | include errors|input errors|output errors|drops)",
+      "Target resolution: literal device SW1 found (Cisco 2811, mgmt 172.24.101.202). Group expansion returned empty."
+    ],
+    "diagnosticCheckpoints": [
+      {
+        "step": 1,
+        "description": "Resolve target device",
+        "result": "Group expansion empty; literal lookup returned SW1 (Cisco 2811, 172.24.101.202)."
+      },
+      {
+        "step": 2,
+        "description": "Live CPU sampling",
+        "result": "Ran show processes cpu and show processes cpu sorted; observed low sustained CPU with brief spikes and top processes Virtual Exec and IP Input."
+      },
+      {
+        "step": 3,
+        "description": "CPU trend analysis",
+        "result": "show processes cpu history shows intermittent spikes across seconds/minutes/hours but no sustained high CPU."
+      },
+      {
+        "step": 4,
+        "description": "Memory & interfaces health",
+        "result": "show memory statistics shows healthy free memory; show interfaces shows 0 errors/drops."
+      }
+    ],
+    "viewFullDiagnosis": "http://10.10.33.121/i.html?id=100006&dd=ba3a23dc-5d62-4427-8e30-91cbd32dc2a5"
+  },
   "insightMap": {
-    "mapId": "f0c91d4e-7a2b-4c8d-93b5-1e8f4d6a92cb",
-    "mapName": "Reboot Insight Map",
-    "mapType": 1
+    "mapId": "915b5fe8-e5b3-47e3-8d58-a3576b8fdb2b",
+    "mapName": "Context Map",
+    "mapType": 17
   },
   "statusCode": 790200,
   "statusDescription": "Success."

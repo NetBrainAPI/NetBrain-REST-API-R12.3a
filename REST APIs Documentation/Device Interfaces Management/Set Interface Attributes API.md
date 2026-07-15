@@ -1,7 +1,7 @@
 
 # Interface API Design
 
-## ***PUT*** /V1/CMDB/Interface/Attributes
+## ***PUT*** /V1/CMDB/Interfaces/Attributes
 Call this API to set value for the specific property of one interface.
 
 ## Detail Information

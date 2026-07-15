@@ -1,7 +1,7 @@
 
 # Change Analysis Report API Design -- check export task status API
 
-## ***GET*** /V1/ChangeAnalysis/Export/Tasks/{taskId}/Status
+## ***GET*** /V1/CMDB/ChangeAnalysis/Export/Tasks/{taskId}/Status 
 This API is used to submit a task to check the status of the export task. 
 
 ## Detail Information
@@ -10,7 +10,7 @@ This API is used to submit a task to check the status of the export task.
 
 > **Version** : 10/14/2020.
 
-> **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/CMDB /ChangeAnalysis/Export/Tasks/{taskId}/Status 
+> **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/CMDB/ChangeAnalysis/Export/Tasks/{taskId}/Status 
 
 > **Authentication** : 
 

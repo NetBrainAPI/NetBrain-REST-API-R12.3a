@@ -1,7 +1,7 @@
 
 # Change Analysis Report API Design -- create export task API
 
-## ***POST*** /V1/ChangeAnalysis/Export/Tasks
+## ***POST*** /V1/CMDB/ChangeAnalysis/Export/Tasks 
 This API is used to create a task to export the change analysis report. 
 
 ## Detail Information

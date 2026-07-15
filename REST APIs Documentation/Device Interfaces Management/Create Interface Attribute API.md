@@ -1,7 +1,7 @@
 
 # Interface API Design
 
-## ***POST*** /V1/CMDB/Interface/Attributes
+## ***POST*** /V1/CMDB/Interfaces/Attributes
 Call this API to to create a customized interface attribute for certain device types. You can use the "SetInterfaceAttribute" API to set a value for the created attribute.
 
 ## Detail Information

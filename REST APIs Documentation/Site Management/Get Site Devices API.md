@@ -1,7 +1,7 @@
 
 # Site API Design
 
-## ***GET*** /V1/CMDB/Sites{?sitePath}|{?siteId}
+## ***GET*** /V1/CMDB/Sites/Devices
 Calling this API to get all devices belong to the site specified by site name.
 
 Note: must be a leaf site, error will return if the parameter is root site or a container site.

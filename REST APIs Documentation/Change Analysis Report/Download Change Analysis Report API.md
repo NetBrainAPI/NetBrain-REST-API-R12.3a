@@ -1,7 +1,7 @@
 
 # Change Analysis Report API Design -- export change analysis report API
 
-## ***GET*** V1/ChangeAnalysis/Export/Tasks/{taskId}/Download
+## ***GET*** V1/CMDB/ChangeAnalysis/Export/Tasks/{taskId}/Download  
 This API is used to download the change analysis report with a given taskID. 
 
 ## Detail Information
@@ -10,7 +10,7 @@ This API is used to download the change analysis report with a given taskID.
 
 > **Version** : 10/14/2020.
 
-> **API Server URL** : http(s)://IP Address of NetBrain Web API Server/ServicesAPI/API/V1/CMDB /ChangeAnalysis/Export/Tasks/{taskId}/Download  
+> **API Server URL** : http(s)://IP Address of NetBrain Web API Server/ServicesAPI/API/V1/CMDB/ChangeAnalysis/Export/Tasks/{taskId}/Download  
 
 > **Authentication** : 
 

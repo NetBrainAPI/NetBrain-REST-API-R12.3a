@@ -1,7 +1,7 @@
 
 # Role API Design
 
-## ***PUT*** /V1/CMDB/Path/Calculation
+## ***PUT*** /V1/CMDB/Roles
 Call this API to update the information and privileges of the specified role by current "roleName".
 
 ## Detail Information

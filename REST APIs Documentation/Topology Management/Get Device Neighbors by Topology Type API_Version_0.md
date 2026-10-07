@@ -14,7 +14,7 @@ For legacy `version=1` design, see [Get Device Neighbors by Topology Type API](h
 
 > **Title** : Get Device Neighbors by Topology Type API_Version_0<br>
 
-> **Version** : 02/01/2019.
+> **Version** : 10/07/2026.
 
 > **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/CMDB/Topology/Devices/Neighbors
 
@@ -37,6 +37,7 @@ For legacy `version=1` design, see [Get Device Neighbors by Topology Type API](h
 |<img width=100/>|<img width=100/>|<img width=500/>|
 |||* - required <br>^ - optional|
 |hostname* | list of string  | The devices name, such as ["US-BOS-R1"] or ["US-BOS-R2", "US-BOS-R3", "US-BOS-R4"]|
+|ignoreCase^ | boolean | When set to `true`, each `hostname` is matched case-insensitively against the stored device names. <br>Default: `false`. |
 |topoType* | list of strings  | Return the neighbors in specified topology types<br> 1: L3_Topo_Type, <br>2: L2_Topo_Type, <br>3: Ipv6_L3_Topo_Type, <br>4: VPN_Topo_Type, <br>such as [1] or [2,3,4].|
 |||If both `hostname` and `topoType` are passed, only the <i>first</i> `hostname` and `topoType` will be used.|
 |version^ | string | version=0 |
@@ -105,6 +106,72 @@ except Exception as e:
     {
       "hostname": "Core-ISP1-R1",
       "interface": "GigabitEthernet7 172.16.14.131/22"
+    }
+  ],
+  "statusCode": 790200,
+  "statusDescription": "Success."
+}
+```
+
+# Full Example 2: Using `ignoreCase`
+
+The `ignoreCase` parameter lets you supply `hostname` in any letter case; the server normalizes the match against the stored device name. In this `version=0` example, the device is stored as `ASA-Router` but the request sends `asa-router` (all lowercase) and still returns neighbor data.
+
+```python
+full_url = nb_url + "/ServicesAPI/API/V1/CMDB/Topology/Devices/Neighbors"
+headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+headers["Token"] = token
+
+hostname = ["asa-router"]
+topoType = ['L3_Topo_Type']  # takes strings, not integers
+
+data = {
+        "hostname": hostname,
+        "topoType": topoType,
+        "version": 0,
+        "ignoreCase": True
+    }
+
+try:
+    response = requests.get(full_url, params=data, headers=headers, verify=False)
+    if response.status_code == 200:
+        result = response.json()
+        print(result)
+    else:
+        print("Get neighbors by topology failed! - " + str(response.text))
+
+except Exception as e:
+    print(str(e))
+```
+
+Sample response:
+
+```python
+{
+  "neighbors": [
+    {
+      "hostname": "!@#$%^&*()_-=+~`:;.'|\\/[]{}",
+      "interface": "Ethernet1/3 172.25.52.9/24"
+    },
+    {
+      "hostname": "ASA",
+      "interface": "Ethernet1/3 172.25.52.1/24"
+    },
+    {
+      "hostname": "ASA,Router",
+      "interface": "Ethernet1/3 172.25.52.2/24"
+    },
+    {
+      "hostname": "ASA.Switch",
+      "interface": "Ethernet1/3 172.25.52.6/24"
+    },
+    {
+      "hostname": "ASA@Switch",
+      "interface": "Ethernet1/3 172.25.52.7/24"
+    },
+    {
+      "hostname": "ASA\\Router",
+      "interface": "Ethernet1/3 172.25.52.4/24"
     }
   ],
   "statusCode": 790200,

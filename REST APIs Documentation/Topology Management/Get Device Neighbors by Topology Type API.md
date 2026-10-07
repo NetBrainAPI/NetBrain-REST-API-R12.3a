@@ -25,7 +25,7 @@ As a result, the shape of the API response can differ based on the passed versio
 
 > **Title** : Get Device Neighbors by Topology Type API<br>
 
-> **Version** : 04/09/2026.
+> **Version** : 10/07/2026.
 
 > **API Server URL** : http(s)://IP address of NetBrain Web API Server/ServicesAPI/API/V1/CMDB/Topology/Devices/Neighbors
 
@@ -55,6 +55,7 @@ As a result, the shape of the API response can differ based on the passed versio
 |<img width=100/>|<img width=100/>|<img width=500/>|
 |||* - required <br>^ - optional|
 |hostname^ | list of string  | The device name. Repeat the parameter once per device. <br>e.g. `hostname=US-BOS-R1`, or `hostname=US-BOS-R2&hostname=US-BOS-R3&hostname=US-BOS-R4`|
+|ignoreCase^ | boolean | When set to `true`, each `hostname` is matched case-insensitively against the stored device names. <br>Default: `false`. |
 |topoType* | list of int | Returns the neighbors in specified topology types:<br> `1`: `L3_Topo_Type`, <br>`2`: `L2_Topo_Type`, <br>`3`: `Ipv6_L3_Topo_Type`, <br>`4`: `L3_VPN_Topo_Type`, <br>`5`: `L2_Overlay_Topo_Type` <br>Repeat the parameter once per value. <br>e.g. `topoType=1`, or `topoType=2&topoType=3&topoType=4`. |
 |version^ | string | This is a minor version number. Value of this parameter is `1`.|
 |skip^|integer|The amount of device records to be skipped. <br>The value cannot be negative. If the value is negative, API throws exception `{"statusCode":791001,"statusDescription":"Parameter 'skip' cannot be negative"}`. <br> No upper bound for this parameter.<br><br> default value: `0`|
@@ -328,6 +329,71 @@ except Exception as e:
     {
       "hostname": "CCC",
       "interface": "Ethernet1/3 1.1.1.3/22"
+    }
+  ],
+  "statusCode": 790200,
+  "statusDescription": "Success."
+}
+```
+
+## Example 5: Using `ignoreCase`
+
+The `ignoreCase` parameter lets you supply `hostname` in any letter case; the server normalizes the match against the stored device name. In this example, the device is stored as `ASA-Router` but the request sends `asa-router` (all lowercase) with multiple `topoType` values and still returns neighbor data.
+
+```python
+full_url = nb_url + "/ServicesAPI/API/V1/CMDB/Topology/Devices/Neighbors"
+headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+headers["Token"] = token
+
+hostname = ["asa-router"]
+topoType = [1, 2, 3, 4]
+
+data = {
+        "hostname": hostname,
+        "topoType": topoType,
+        "version": 1,
+        "ignoreCase": True
+    }
+
+try:
+    response = requests.get(full_url, params=data, headers=headers, verify=False)
+    if response.status_code == 200:
+        result = response.json()
+        print(result)
+    else:
+        print("Get neighbors by topology failed! - " + str(response.text))
+
+except Exception as e:
+    print(str(e))
+```
+
+Sample response:
+
+```python
+{
+  "topology": [
+    {
+      "hostname": "ASA-Router",
+      "neighbors": [
+        {
+          "interface": "Ethernet1/3 172.25.52.3/24",
+          "media": "172.25.52.0/24",
+          "topology": "L3_Topo_Type",
+          "connected_device": {
+            "nbr_device": "ASA",
+            "nbr_intf": "Ethernet1/3 172.25.52.1/24"
+          }
+        },
+        {
+          "interface": "Ethernet1/3 172.25.52.3/24",
+          "media": "172.25.52.0/24",
+          "topology": "L3_Topo_Type",
+          "connected_device": {
+            "nbr_device": "ASA@Switch",
+            "nbr_intf": "Ethernet1/3 172.25.52.7/24"
+          }
+        }
+      ]
     }
   ],
   "statusCode": 790200,

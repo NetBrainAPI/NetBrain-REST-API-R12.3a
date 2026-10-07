@@ -2,13 +2,13 @@
 # DataEngine API Design
 
 ## ***GET*** /V1/CMDB/DataEngine/DeviceData/Configuration/{?hostname}
-Calling this API to get the configuration of a device.
+Returns the running configuration text of a device (as last captured by NetBrain), along with the capture timestamp.
 
 ## Detail Information
 
 > **Title** : Get Device Configuration API<br>
 
-> **Version** : 02/06/2019.
+> **Version** : 10/07/2026.
 
 > **API Server URL** : http(s):// IP address of your NetBrain Web API Server /ServicesAPI/API/V1/CMDB/DataEngine/DeviceData/Configuration
 
@@ -29,6 +29,7 @@ Calling this API to get the configuration of a device.
 |------|------|------|
 |<img width=100/>|<img width=100/>|<img width=500/>|
 | hostname* | string  | The name of a device. |
+| ignoreCase^ | boolean | When set to `true`, the `hostname` match is case-insensitive. <br>Default: `false`. |
 
  ## Headers
 
@@ -219,6 +220,55 @@ list(set(words))
      'enable secret ********']
 
 
+
+## Full Example 2 : Using `ignoreCase`
+
+The `ignoreCase` parameter lets you supply `hostname` in any letter case; the server normalizes the match against the stored device name. In this example, the device is stored as `Berlin-R1` but the request sends `berlin-r1` (all lowercase) and still succeeds.
+
+```python
+# import python modules
+import requests
+import urllib3
+import json
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Set the request inputs
+token = "<your-auth-token>"
+nb_url = "http(s)://<your-netbrain-web-api-server>"
+
+full_url = nb_url + "/ServicesAPI/API/V1/CMDB/DataEngine/DeviceData/Configuration"
+headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+headers["Token"] = token
+
+hostname = "berlin-r1"
+
+data = {
+        "hostname": hostname,
+        "ignoreCase": True
+    }
+
+try:
+    response = requests.get(full_url, params=data, headers=headers, verify=False)
+    if response.status_code == 200:
+        result = response.text
+        print(result)
+    else:
+        print("Get Device Configuration failed! - " + str(response.text))
+
+except Exception as e:
+    print(str(e))
+```
+
+Sample response (truncated for brevity):
+
+```python
+{
+  "configuration": "Berlin-R1#show run\r\nBuilding configuration...\r\n\r\nCurrent configuration : 1364 bytes\r\n!\r\n! Last configuration change at 21:19:19 EET Thu Sep 17 2026\r\n!\r\nversion 15.4\r\n...\r\nhostname Berlin-R1\r\n...\r\ninterface Ethernet0/0\r\n ip address 10.8.12.34 255.255.255.252\r\n ip ospf 1 area 5\r\n!\r\n...\r\nend\r\n\r\n",
+  "time": "2026-09-23T08:31:02Z",
+  "statusCode": 790200,
+  "statusDescription": "Success."
+}
+```
 
 # cURL Code from Postman:
 
